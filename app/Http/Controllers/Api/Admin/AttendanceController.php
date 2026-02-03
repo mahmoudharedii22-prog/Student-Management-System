@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Controllers\Api\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Attendance\GetAllAttendanceWithFilersRequest;
+use App\Services\AttendanceService;
+use App\Traits\ApiResponse;
+
+class AttendanceController extends Controller
+{
+    use ApiResponse;
+
+    public function index(GetAllAttendanceWithFilersRequest $request, AttendanceService $service)
+    {
+
+        $attendance = $service->all($request->validated());
+
+        return $this->successWithPagination('Found successfully', 200, $attendance->items(), $attendance);
+    }
+
+    public function show(AttendanceService $service, $id)
+    {
+        $attendance = $service->findAttendance($id);
+
+        return $this->successWithData('Attendance retrieved successfully', 200, $attendance);
+    }
+}
