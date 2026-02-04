@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Attendance;
+namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetAllAttendanceWithFilersRequest extends FormRequest
+class GetStudentGradesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +13,7 @@ class GetAllAttendanceWithFilersRequest extends FormRequest
     {
         return true;
     }
+    
 
     /**
      * Get the validation rules that apply to the request.
@@ -22,10 +23,7 @@ class GetAllAttendanceWithFilersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'student_id' => 'nullable|exists:users,id',
-            'from' => 'nullable|date',
-            'to' => 'nullable|date|after_or_equal:from|required_with:from',
-
+            'student_id' => 'required|exists:users,id',
         ];
     }
 }

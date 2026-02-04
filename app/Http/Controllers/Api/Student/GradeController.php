@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Api\Student;
 
-use App\Http\Controllers\Controller;
-use App\Services\GradeService;
 use App\Traits\ApiResponse;
+use App\Services\GradeService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Student\GetStudentGradesRequest;
 
 class GradeController extends Controller
 {
     use ApiResponse;
 
-    public function index(GradeService $service)
+    public function index(GradeService $service )
     {
         $grades = $service->getGrades();
 
-        return $this->success('Found successfully', 200);
+        return $this->successWithData('Found successfully', 200 , $grades);
     }
 }

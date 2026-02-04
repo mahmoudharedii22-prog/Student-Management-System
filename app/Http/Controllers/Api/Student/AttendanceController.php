@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Student;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Student\GetMyAttendanceRequest;
 use App\Services\AttendanceService;
 use App\Traits\ApiResponse;
 
@@ -10,10 +11,10 @@ class AttendanceController extends Controller
 {
     use ApiResponse;
 
-    public function index(AttendanceService $service)
+    public function index(AttendanceService $service, GetMyAttendanceRequest $request)
     {
 
-        $studentAttendance = $service->getStudentAttendance(request()->all());
+        $studentAttendance = $service->getStudentAttendance($request->validated());
 
         return $this->successWithPagination('Found successfully', 200, $studentAttendance->items(), $studentAttendance);
     }

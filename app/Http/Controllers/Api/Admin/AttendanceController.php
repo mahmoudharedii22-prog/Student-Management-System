@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Attendance\GetAllAttendanceWithFilersRequest;
+use App\Http\Requests\Attendance\GetAllAttendanceWithFilersRequest;
+use App\Http\Requests\Attendance\GetStudentAttendanceRequest;
 use App\Services\AttendanceService;
 use App\Traits\ApiResponse;
 
@@ -19,9 +20,9 @@ class AttendanceController extends Controller
         return $this->successWithPagination('Found successfully', 200, $attendance->items(), $attendance);
     }
 
-    public function show(AttendanceService $service, $id)
+    public function show(AttendanceService $service,GetStudentAttendanceRequest $request)
     {
-        $attendance = $service->findAttendance($id);
+        $attendance = $service->findAttendance($request->validated());
 
         return $this->successWithData('Attendance retrieved successfully', 200, $attendance);
     }

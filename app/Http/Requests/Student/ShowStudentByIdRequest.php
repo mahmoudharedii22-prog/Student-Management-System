@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Course;
+namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCourseRequest extends FormRequest
+class ShowStudentByIdRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,6 +14,12 @@ class CreateCourseRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'id' => $this->route('id'),
+        ]);
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,10 +28,7 @@ class CreateCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|min:3|max:255',
-            'description' => 'required|string|min:3|max:255',
-            'hours' => 'required|integer|max:255',
-            'code' => 'required|string|min:3|max:255'
+            'id' => 'required|exists:users,id',
         ];
     }
 }

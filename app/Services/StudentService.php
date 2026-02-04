@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Contracts\StudentRepositoryInterface;
 use App\Models\User;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class StudentService
 {
@@ -24,24 +26,42 @@ class StudentService
         throw new \Exception('Student not found');
     }
 
-    public function update(array $data, User $user)
+    public function update(array $data, User $user): User
     {
 
         return $this->repo->update($data, $user);
     }
 
-    public function delete(User $user)
+    public function softDelete(User $user): void
     {
-        return $this->repo->delete($user);
+        $this->repo->softDelete($user);
     }
 
-    public function all(array $filters)
+    public function all(array $filters): LengthAwarePaginator // pagination
     {
-        return $this->repo->getStudentsWithFilters($filters, 5);
+        $filters['perpage'] = $filters['perpage'] ?? 10;
+
+        return $this->repo->getStudentsWithFilters($filters, $filters['perpage']);
 
     }
-    public function getProfile()
+
+    public function getProfile(): User
     {
         return $this->repo->getProfile();
+    }
+
+    public function forceDelete(User $user): void
+    {
+        $this->repo->forceDelete($user);
+    }
+
+    public function showDeleted(): Collection
+    {
+        return $this->repo->showDeleted();
+    }
+
+    public function restore(User $user): User
+    {
+        return $this->repo->restore($user);
     }
 }

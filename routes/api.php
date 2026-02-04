@@ -26,12 +26,18 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->prefix('v1/admin')->group(functi
     Route::get('/students/{id}', [StudentController::class, 'show']);
     Route::put('/students/{user}', [StudentController::class, 'update']);
     Route::delete('/students/{user}', [StudentController::class, 'destroy']);
+    Route::delete('/students/{user}', [StudentController::class, 'forceDelete']);
+    Route::get('/students/deleted', [StudentController::class, 'showDeleted']);
+    Route::post('/students/{student}/restore', [StudentController::class, 'restore']);
 
     Route::get('/courses', [AdminCourseController::class, 'index']);
     Route::post('/courses/store', [AdminCourseController::class, 'store']);
     Route::get('/courses/{id}', [AdminCourseController::class, 'show']);
     Route::put('/courses/{course}', [AdminCourseController::class, 'update']);
     Route::delete('/courses/{course}', [AdminCourseController::class, 'destroy']);
+    Route::delete('/courses/{course}', [AdminCourseController::class, 'forceDelete']);
+    Route::get('/courses/deleted', [AdminCourseController::class, 'showDeleted']);
+    Route::post('/courses/{course}/restore', [AdminCourseController::class, 'restore']);
 
     Route::get('/grades', [GradeController::class, 'index']);
     Route::post('/grades/store', [GradeController::class, 'store']);

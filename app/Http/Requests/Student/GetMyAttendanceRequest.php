@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Student;
+namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetAllStudentsWithfilterRequest extends FormRequest
+class GetMyAttendanceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,8 @@ class GetAllStudentsWithfilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => 'string',
-            'status' => 'in:active,inactive',
-
+            'from' => 'nullable|date',
+            'to' => 'nullable|required with:from|date',
         ];
     }
 }

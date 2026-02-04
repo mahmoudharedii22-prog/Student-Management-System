@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('status', ['active', 'inactive'])->default('inactive');
             $table->string('password');
             $table->string('role')->default('student');
+            $table->softDeletes();
             $table->timestamps();
             $table->rememberToken();
         });

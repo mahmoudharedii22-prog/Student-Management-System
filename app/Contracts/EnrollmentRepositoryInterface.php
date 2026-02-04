@@ -6,7 +6,7 @@ use App\Models\Enrollment;
 
 interface EnrollmentRepositoryInterface
 {
-    public function create(array $data);
+    public function create(array $data):Enrollment;
 
-    public function delete(Enrollment $enrollment);
+    public function delete(Enrollment $enrollment):void;
 }

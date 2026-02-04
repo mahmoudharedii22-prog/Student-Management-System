@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Enrollment\CreateEnrollmentRequest;
+use App\Http\Requests\Enrollment\CreateEnrollmentRequest;
 use App\Models\Enrollment;
 use App\Services\EnrollmentService;
 use App\Traits\ApiResponse;

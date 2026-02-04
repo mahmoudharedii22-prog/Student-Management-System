@@ -5,6 +5,7 @@ namespace App\Contracts\Emplementations;
 use App\Contracts\AttendanceRepositoryInterface;
 use App\Enums\AttendanceStatus;
 use App\Models\Attendance;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
 class EloquentAttendanceRepository implements AttendanceRepositoryInterface
@@ -17,7 +18,7 @@ class EloquentAttendanceRepository implements AttendanceRepositoryInterface
         //
     }
 
-    public function attendanceWithFilters(array $data)
+    public function attendanceWithFilters(array $filters): LengthAwarePaginator
     {
         $query = Attendance::query();
 
@@ -30,12 +31,12 @@ class EloquentAttendanceRepository implements AttendanceRepositoryInterface
 
         }
 
-        return $query->get();
+        return $query->orderBy('check_in_at', 'asc')->paginate($filters['perpage']);
     }
 
-    public function findAttendanceById($id)
+    public function findAttendanceById(array $data): ? LengthAwarePaginator
     {
-        return Attendance::where('student_id', $id)->get();
+        return Attendance::where('student_id', $data['student_id'])->paginate($data['perpage']);
     }
 
     public function create(): Attendance
@@ -67,7 +68,7 @@ class EloquentAttendanceRepository implements AttendanceRepositoryInterface
 
     }
 
-    public function studentAttendance(array $filters, $perpage)
+    public function studentAttendance(array $filters): LengthAwarePaginator
     {
         $student = Auth::user();
         $query = Attendance::query()->where('student_id', $student->id);
@@ -81,6 +82,6 @@ class EloquentAttendanceRepository implements AttendanceRepositoryInterface
             $query->whereBetween('date', [$filters['from'], $filters['to']]);
         }
 
-        return $query->paginate($perpage);
+        return $query->paginate($filters['perpage']);
     }
 }

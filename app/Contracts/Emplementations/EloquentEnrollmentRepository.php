@@ -12,13 +12,14 @@ class EloquentEnrollmentRepository implements EnrollmentRepositoryInterface
      */
     public function __construct() {}
 
-    public function create(array $data)
+    public function create(array $data): Enrollment
     {
         return Enrollment::create($data);
     }
 
-    public function delete(Enrollment $enrollment)
+    public function delete(Enrollment $enrollment): void
     {
-        return $enrollment->delete();
+        $enrollment->delete();
+
     }
 }

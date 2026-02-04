@@ -25,10 +25,10 @@ class EloquentSessionRepository implements SessionRepositoryInterface
     {
         try {
             $user->tokens()->delete();
-
             return true;
+
         } catch (\Exception $e) {
-            return false;
+            throw new \Exception('Error deleting token');
         }
     }
     public function findByEmail(array $data): ?User

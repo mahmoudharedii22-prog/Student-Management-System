@@ -16,14 +16,18 @@ class AttendanceService
         $this->repo = $repo;
     }
 
-    public function all(array $data)
+    public function all(array $filters) // pagination
     {
-        return $this->repo->attendanceWithFilters($data);
+        $filters['perpage'] = $filters['perpage'] ?? 10;
+
+        return $this->repo->attendanceWithFilters($filters);
     }
 
-    public function findAttendance($id)
+    public function findAttendance($data)
     {
-        return $this->repo->findAttendanceById($id);
+        $data['perpage'] = $data['perpage'] ?? 10;
+
+        return $this->repo->findAttendanceById($data);
     }
 
     public function check_in(): Attendance
@@ -44,8 +48,8 @@ class AttendanceService
 
     public function getStudentAttendance(array $filters)
     {
-        $perpage = 10;
+        $filters['perpage'] = $filters['perpage'] ?? 10;
 
-        return $this->repo->studentAttendance($filters, $perpage);
+        return $this->repo->studentAttendance($filters);
     }
 }

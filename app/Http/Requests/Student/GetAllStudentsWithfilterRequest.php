@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Grade;
+namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateGradeRequest extends FormRequest
+class GetAllStudentsWithfilterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,10 @@ class CreateGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'student_id' => 'required|exists:users,id',
-            'course_id' => 'required|exists:courses,id',
-            'grade_value' => 'required|in:A,B,C',
-            'notes' => 'nullable|string|min:3|max:255',
-        ];
+            'search' => 'nullable|string',
+            'status' => 'nullable|in:active,inactive',
+            'perpage' => 'nullable|integer',
 
+        ];
     }
 }

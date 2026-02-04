@@ -12,8 +12,8 @@ class CourseController extends Controller
 
     public function index(CourseService $service)
     {
-        $service->all();
+        $courses = $service->getMycourses();
 
-        return $this->success('Found successfully', 200);
+        return $this->successWithData('Found successfully', 200 , $courses);
     }
 }

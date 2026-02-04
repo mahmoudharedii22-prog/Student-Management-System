@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Grade\CreateGradeRequest;
-use App\Http\Requests\Admin\Grade\GetAllGradesWithFilterGradeRequest;
-use App\Http\Requests\Admin\Grade\UpdateGradeRequest;
+use App\Http\Requests\Grade\CreateGradeRequest;
+use App\Http\Requests\Grade\GetAllGradesWithFilterGradeRequest;
+use App\Http\Requests\Grade\UpdateGradeRequest;
 use App\Models\Grade;
 use App\Services\GradeService;
 use App\Traits\ApiResponse;
@@ -19,7 +19,7 @@ class GradeController extends Controller
 
         $grades = $service->all($request->validated());
 
-        return $this->successWithdata('Found successfully', 200, $grades);
+        return $this->successWithPagination('Found successfully', 200, $grades->items(), $grades);
     }
 
     public function store(GradeService $service, CreateGradeRequest $request)

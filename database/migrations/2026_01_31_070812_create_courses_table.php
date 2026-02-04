@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('description');
             $table->integer('hours');
             $table->string('code');
+            $table->softDeletes();
             $table->timestamps();
-            
+
         });
     }
 

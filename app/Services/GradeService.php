@@ -15,8 +15,9 @@ class GradeService
         $this->repo = $repo;
     }
 
-    public function all(array $filters)
+    public function all(array $filters) // pagination
     {
+        $filters['per_page'] = $filters['per_page'] ?? 10;
         return $this->repo->getGradesWithFilters($filters);
     }
 
@@ -34,8 +35,10 @@ class GradeService
     {
         return $grade->update($data);
     }
+
     public function getGrades()
     {
+ 
         return $this->repo->getGrades();
     }
 }
