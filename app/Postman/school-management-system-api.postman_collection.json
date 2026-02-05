@@ -1,0 +1,1284 @@
+{
+  "info": {
+    "_postman_id": "da9eb6cb-7d3a-440e-95cf-bbf3ca5807f8",
+    "name": "school-management-system-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51729050",
+    "_collection_link": "https://go.postman.co/collection/51729050-da9eb6cb-7d3a-440e-95cf-bbf3ca5807f8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"admin\",\r\n  \"email\": \"admin@example.com\",\r\n  \"phone\": \"01033867105\",\r\n  \"password\": \"1234567890\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://school-management-system-api.test/api/v1/register",
+              "protocol": "http",
+              "host": [
+                "school-management-system-api",
+                "test"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\r\n  \"email\": \"admin2@example.com\",\r\n  \"password\": \"1234567890\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://school-management-system-api.test/api/v1/login",
+              "protocol": "http",
+              "host": [
+                "school-management-system-api",
+                "test"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "7|uheXu3CXBffe4hEvnGghVD0Bir5rvCStDkpWQHhE3656db78",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://school-management-system-api.test/api/v1/logout",
+              "protocol": "http",
+              "host": [
+                "school-management-system-api",
+                "test"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Students",
+          "item": [
+            {
+              "name": "CreateStudent",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"user2\",\r\n  \"email\": \"user24@example.com\",\r\n  \"phone\": \"01033867105\",\r\n  \"password\": \"1234567890\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/students/store",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "students",
+                    "store"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "SoftDeleteStudent",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/students/6",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "students",
+                    "6"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindStudent",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "4|l9EyheP7W076M35hrml0zmIZhTmY4FLVQ5Cr6EP473e38fa5",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/students\\5",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "students",
+                    "5"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAllStudentWithFilter",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/students?perpage=10",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "students"
+                  ],
+                  "query": [
+                    {
+                      "key": "perpage",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "UpdateStudent",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "4|l9EyheP7W076M35hrml0zmIZhTmY4FLVQ5Cr6EP473e38fa5",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"updated \",\r\n  \"email\": \"ahmed322@example.com\",\r\n  \"phone\": \"01012345678\",\r\n  \"password\": \"1234567890\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/students/5",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "students",
+                    "5"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "ForceDeleteStudent",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "4|xRKoCaR7tJb5cJQs5FLi4OHVMDymYKTuqn0DFAUu6d7d742b",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/students/force-delete/",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "students",
+                    "force-delete",
+                    ""
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "ShowDeleted",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/students/trashed",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "students",
+                    "trashed"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Restore",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/students/6/restore",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "students",
+                    "6",
+                    "restore"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Courses",
+          "item": [
+            {
+              "name": "GetAllCourses",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/courses",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "courses"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "CreateCourse",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"Create Course 2\",\r\n    \"description\": \"This is a new course\",\r\n    \"code\": \"CS1021\",\r\n    \"hours\": 3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/courses/store",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "courses",
+                    "store"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "UpdateCourse",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"updated Course\",\r\n    \"description\": \"This is a new course\",\r\n    \"code\": \"CS101\",\r\n    \"hours\": 3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/courses/1",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "courses",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DeleteCourse",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/courses/1",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "courses",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "ForeceDelte",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/courses/force-delete/1",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "courses",
+                    "force-delete",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "ShowDeleted",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/courses/trashed",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "courses",
+                    "trashed"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Restore",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|bvkrIFzHCZwsHr1IuBomwXJRiYD2Qmos76VfprkR7738db15",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/courses/1/restore",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "courses",
+                    "1",
+                    "restore"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Grades",
+          "item": [
+            {
+              "name": "getAllWithfilters",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "4|l9EyheP7W076M35hrml0zmIZhTmY4FLVQ5Cr6EP473e38fa5",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/grades",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "grades"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "CreateGrade",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "4|l9EyheP7W076M35hrml0zmIZhTmY4FLVQ5Cr6EP473e38fa5",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"student_id\": 3,\r\n  \"course_id\": 2,\r\n  \"grade_value\": \"A\",\r\n  \"notes\": \"Good performance\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/grades/store",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "grades",
+                    "store"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DeleteGrad",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "4|l9EyheP7W076M35hrml0zmIZhTmY4FLVQ5Cr6EP473e38fa5",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/grades/2",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "grades",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "UpdateGrade",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "4|l9EyheP7W076M35hrml0zmIZhTmY4FLVQ5Cr6EP473e38fa5",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"student_id\": 3,\r\n  \"course_id\": 2,\r\n  \"grade_value\": \"C\",\r\n  \"notes\": \"Good performance\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/grades/3",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "grades",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Enrollments",
+          "item": [
+            {
+              "name": "CreateEnrollment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "2|swp3ELDiDT4E4oPaTzOVkYOjpwYW8YLasfjFiHpqbd1dcbd2",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"student_id\":3,\r\n    \"course_id\": 2\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/enrollments",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "enrollments"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DeleteEnrollment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "2|swp3ELDiDT4E4oPaTzOVkYOjpwYW8YLasfjFiHpqbd1dcbd2",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/enrollments/1",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "enrollments",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Attendances",
+          "item": [
+            {
+              "name": "GetAllAttendanceWithFilters",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "2|swp3ELDiDT4E4oPaTzOVkYOjpwYW8YLasfjFiHpqbd1dcbd2",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"student_id\":4\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/attendance",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "attendance"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAttendanceById",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "2|swp3ELDiDT4E4oPaTzOVkYOjpwYW8YLasfjFiHpqbd1dcbd2",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/admin/students/5/attendance",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "students",
+                    "5",
+                    "attendance"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Student",
+      "item": [
+        {
+          "name": "Attendance",
+          "item": [
+            {
+              "name": "check-in",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "3|DxdGyUTDqbPCiJfl0R0KGj8vGAJedljubXf9Arxxd8cf2567",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/students/attendance/check-in",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "students",
+                    "attendance",
+                    "check-in"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "check-out",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "3|DxdGyUTDqbPCiJfl0R0KGj8vGAJedljubXf9Arxxd8cf2567",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/students/attendance/check-out",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "students",
+                    "attendance",
+                    "check-out"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "View",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|wDdYAm8WohE1zgb3YqUVhniH1tmPk3q69jvoYnZX97f9fda8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/students/attendance?from=2026-02-01&to=2026-02-01",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "students",
+                    "attendance"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2026-02-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2026-02-01"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Grade",
+          "item": [
+            {
+              "name": "ViewGrade",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|wDdYAm8WohE1zgb3YqUVhniH1tmPk3q69jvoYnZX97f9fda8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/students/grades",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "students",
+                    "grades"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2026-02-01",
+                      "disabled": true
+                    },
+                    {
+                      "key": "to",
+                      "value": "2026-02-31",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Profile",
+          "item": [
+            {
+              "name": "view",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|wDdYAm8WohE1zgb3YqUVhniH1tmPk3q69jvoYnZX97f9fda8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/students/me",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "students",
+                    "me"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Courses",
+          "item": [
+            {
+              "name": "viewAll",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "5|wDdYAm8WohE1zgb3YqUVhniH1tmPk3q69jvoYnZX97f9fda8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://school-management-system-api.test/api/v1/students/courses",
+                  "protocol": "http",
+                  "host": [
+                    "school-management-system-api",
+                    "test"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "students",
+                    "courses"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

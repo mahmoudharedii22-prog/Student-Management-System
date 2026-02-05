@@ -25,11 +25,22 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'phone' => fake()->phoneNumber(),
+            'status' => fake()->randomElement(['active', 'inactive']),
+            'role' => 'student',
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
+    }
+
+    public function createAdmin()
+    {
+        return $this->state(fn ($attributes) => [
+            'role' => 'admin',
+            'email' => fake()->unique()->safeEmail(),
+            'name' => fake()->name(),
+        ]);
     }
 
     /**

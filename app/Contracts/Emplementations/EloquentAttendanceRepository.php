@@ -34,7 +34,7 @@ class EloquentAttendanceRepository implements AttendanceRepositoryInterface
         return $query->orderBy('check_in_at', 'asc')->paginate($filters['perpage']);
     }
 
-    public function findAttendanceById(array $data): ? LengthAwarePaginator
+    public function findAttendanceById(array $data): ?LengthAwarePaginator
     {
         return Attendance::where('student_id', $data['student_id'])->paginate($data['perpage']);
     }
