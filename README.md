@@ -1,3 +1,5 @@
+```text
+
 ## Setup Steps
 
 1. Clone the repository
@@ -26,21 +28,17 @@
 ## Architecture Explanation
 
 
+
 app/
-│
 ├── Http/
-│   │
 │   ├── Controllers/
 │   │   └── Api/
 │   │       ├── Admin/
 │   │       │   └── (Admin related controllers)
-│   │       │
 │   │       ├── Student/
 │   │       │   └── (Student related controllers)
-│   │       │
 │   │       └── Auth/
 │   │           └── (Authentication controllers: login, logout, etc.)
-│   │
 │   ├── Requests/
 │   │   ├── Attendance/
 │   │   ├── Enrollment/
@@ -49,29 +47,15 @@ app/
 │   │   ├── Student/
 │   │   └── Auth/
 │   │       └── (Authentication related requests)
-│   │
 │   └── Middleware/
 │       ├── IsAdmin.php
 │       └── IsStudent.php
-│
 ├── Models/
 │   └── (Eloquent models & relationships)
-│
 ├── Services/
 │   └── (Business logic layer)
-│
 ├── Contracts/
-│   ├── (Repository interfaces)
-│   │
-│   └── Implementations/
-│       └── (Repository implementations)
-│
-├── Enums/
-│   ├── AttendanceStatus.php
-│   └── StudentStatus.php
-│
-└── Traits/
-    └── (Reusable shared logic)
+│   ├── (Repos
 
 
 The project follows a layered architecture to keep the code clean and maintainable.
