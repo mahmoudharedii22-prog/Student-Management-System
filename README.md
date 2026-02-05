@@ -25,11 +25,14 @@
 8. Run the server
    php artisan serve
 
-## Architecture Explanation
+9. (Optional) Create test users via Tinker / Factory
+   ```bash
+   php artisan tinker
+     User::factory()->count(x)->create();
+     User::factory()->count(x)->createAdmin()->create();
+     Course::factory()->count(x)->createAdmin()->create();
 
 
-
-```text
 app/
 ├── Http/
 │   ├── Controllers/
