@@ -1,59 +1,147 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+```text
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Setup Steps
 
-## About Laravel
+1. Clone the repository
+   git clone <repo-url>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+2. Install dependencies
+   composer install
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+3. Copy .env file
+   cp .env.example .env
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+4. Generate application key
+   php artisan key:generate
 
-## Learning Laravel
+5. Configure database in .env
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+6. Run migrations
+   php artisan migrate
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+7. (Optional) Seed the database
+   php artisan db:seed
 
-## Laravel Sponsors
+8. Run the server
+   php artisan serve
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Architecture Explanation
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
 
-## Contributing
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   │   └── Api/
+│   │       ├── Admin/
+│   │       │   └── (Admin related controllers)
+│   │       ├── Student/
+│   │       │   └── (Student related controllers)
+│   │       └── Auth/
+│   │           └── (Authentication controllers: login, logout, etc.)
+│   ├── Requests/
+│   │   ├── Attendance/
+│   │   ├── Enrollment/
+│   │   ├── Course/
+│   │   ├── Grade/
+│   │   ├── Student/
+│   │   └── Auth/
+│   │       └── (Authentication related requests)
+│   └── Middleware/
+│       ├── IsAdmin.php
+│       └── IsStudent.php
+├── Models/
+│   └── (Eloquent models & relationships)
+├── Services/
+│   └── (Business logic layer)
+├── Contracts/
+│   ├── (Repository interfaces)
+│   └── Implementations/
+│       └── (Repository implementations)
+├── Enums/
+│   ├── AttendanceStatus.php
+│   └── StudentStatus.php
+└── Traits/
+    └── (Reusable shared logic)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+The project follows a layered architecture to keep the code clean and maintainable.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Controllers(thin):
+  Handle HTTP requests and responses only, without business logic.
 
-## Security Vulnerabilities
+- Form Requests:
+  Responsible for request validation and authorization.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+- Enums
+  Enums are used to represent fixed states across the application in a type-safe way.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Services:
+  contain the business logic of the application, They act as an intermediate layer between controllers and repositories.
+
+  
+- Repositories:
+  Repositories are responsible for handling all database operations, They abstract the data access layer and prevent direct interaction with Eloquent models inside services.
+
+
+- Models:
+  Represent database entities and handle relationships.
+
+- Traits:
+  Used for reusable logic such as standard API responses.
+
+- Routes:
+  API routes are grouped by version and role (admin) for better scalability.
+
+  
+## Response Standard Explanation
+
+All API responses in the application follow a consistent and unified structure using the ApiResponse trait. This ensures that all endpoints return responses in the same format, making it easier for frontend and mobile clients to consume the API reliably.
+
+- Success Responses
+  Indicate successful operations.
+
+  (1) Success without data to show
+  
+  {
+  "code": 200,
+  "message": "Student retrieved successfully",
+}
+
+  (2) Success with data to show
+
+{
+  "code": 200,
+  "message": "Student retrieved successfully",
+  "data": {
+    "id": 1,
+    "name": "Ahmed"
+  }
+}
+
+(3) Success with pagination 
+
+{
+  "code": 200,
+  "message": "Student retrieved successfully",
+  "data": {
+    "id": 1,
+    "name": "Ahmed"
+  }
+   "meta": {
+    "current_page": 1,
+    "per_page": 15,
+    "last_page": 3,
+    "total": 40,
+    "next_page_url": "...",
+    "prev_page_url": null,  
+  }
+}
+
+(4) Error
+{
+  "code": 404,
+  "message": "Validation failed",
+}
