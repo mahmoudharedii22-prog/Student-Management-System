@@ -37,9 +37,9 @@ class EloquentCourseRepository implements CourseRepositoryInterface
         $course->forceDelete();
     }
 
-    public function showDeleted($perPage): Collection
+    public function showDeleted(): Collection
     {
-        return Course::onlyTrashed()->orderBy('deleted_at', 'desc')->paginate($perPage);
+        return Course::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
     }
 
     public function getMycourses(): collection
@@ -49,6 +49,13 @@ class EloquentCourseRepository implements CourseRepositoryInterface
 
     public function restore(Course $course): Course
     {
-        return $course->restore();
+        $course->restore();
+
+        return $course;
+    }
+
+    public function findDeletedCourse($id): Course
+    {
+        return Course::withTrashed()->findOrFail($id);
     }
 }

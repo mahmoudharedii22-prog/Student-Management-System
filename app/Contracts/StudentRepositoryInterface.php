@@ -23,4 +23,6 @@ interface StudentRepositoryInterface
     public function forceDelete(User $user): void;
 
     public function restore(User $user): User;
+
+    public function findDeletedUser($id): ?User;
 }

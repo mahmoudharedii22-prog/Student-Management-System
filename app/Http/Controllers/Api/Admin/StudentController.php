@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Student\CreateStudentRequest;
 use App\Http\Requests\Student\GetAllStudentsWithfilterRequest;
+use App\Http\Requests\Student\RestoreDeletedStudentRequest;
 use App\Http\Requests\Student\ShowStudentByIdRequest;
 use App\Http\Requests\Student\UpdateStudentRequest;
 use App\Models\User;
@@ -60,11 +61,15 @@ class StudentController extends Controller
     {
         $service->forceDelete($user);
 
-        return $this->success('Student Deleted successfully', 200);
+        return $this->success('Student forece-Deleted successfully', 200);
     }
 
-    public function restore(StudentService $service, User $user)
+    public function restore(StudentService $service, RestoreDeletedStudentRequest $request)
     {
+        $validated = $request->validated();
+
+        $user = $service->findDeletedUser($validated['id']);
+
         $restoredUser = $service->restore($user);
 
         return $this->successWithData('Student Restored successfully', 200, $restoredUser);
@@ -72,6 +77,9 @@ class StudentController extends Controller
 
     public function showDeleted(StudentService $service)
     {
+
         $deletedUsers = $service->showDeleted();
+
+        return $this->successWithData('Deleted Students retrieved successfully', 200, $deletedUsers);
     }
 }

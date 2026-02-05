@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Models\Course;
+use App\Traits\ApiResponse;
+use App\Services\CourseService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\CreateCourseRequest;
-use App\Http\Requests\course\GetAllCoursesRequest;
 use App\Http\Requests\Course\UpdateCourseRequest;
-use App\Models\Course;
-use App\Services\CourseService;
-use App\Traits\ApiResponse;
+use App\Http\Requests\course\GetAllCoursesRequest;
+use App\Http\Requests\Course\RestoreDeletedCourseRequest;
+
 
 class CourseController extends Controller
 {
@@ -44,23 +46,27 @@ class CourseController extends Controller
         return $this->success('Course Deleted successfully', 200);
     }
 
-    public function restore(CourseService $service, Course $course)
+    public function restore(CourseService $service, RestoreDeletedCourseRequest $request)
     {
-        $service->restore($course);
+        $validated = $request->validated();
 
-        return $this->success('Course Restored successfully', 200);
+        $deletedCourse = $service->findDeletedCourse($validated['id']);
+
+        $service->restore($deletedCourse);
+
+        return $this->successWithData('Course Restored successfully', 200, $deletedCourse);
     }
 
     public function forceDelete(CourseService $service, Course $course)
     {
         $service->forceDelete($course);
 
-        return $this->success('Course Deleted successfully', 200);
+        return $this->success('Course forece-Deleted successfully', 200);
     }
 
-    public function showDeleted(CourseService $service, GetAllCoursesRequest $request)
+    public function showDeleted(CourseService $service)
     {
-        $courses = $service->showDeleted($request->validated());
+        $courses = $service->showDeleted();
 
         return $this->successWithData('Found successfully', 200, $courses);
     }

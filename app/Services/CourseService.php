@@ -55,8 +55,13 @@ class CourseService
         $this->repo->forceDelete($course);
     }
 
-    public function showDeleted($perPage): Collection
+    public function showDeleted(): Collection
     {
-        return $this->repo->showDeleted($perPage);
+        return $this->repo->showDeleted();
+    }
+
+    public function findDeletedCourse($id): ?Course
+    {
+        return $this->repo->findDeletedCourse($id);
     }
 }

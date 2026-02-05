@@ -62,6 +62,15 @@ class StudentService
 
     public function restore(User $user): User
     {
-        return $this->repo->restore($user);
+        if ($user) {
+            return $this->repo->restore($user);
+        }
+
+        throw new \Exception('User not found');
+    }
+
+    public function findDeletedUser($id): ?User
+    {
+        return $this->repo->findDeletedUser($id);
     }
 }

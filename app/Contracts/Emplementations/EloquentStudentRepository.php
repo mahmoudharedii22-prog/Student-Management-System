@@ -64,6 +64,14 @@ class EloquentStudentRepository implements StudentRepositoryInterface
 
     public function restore(User $user): User
     {
-        return $user->restore();
+
+        $user->restore();
+
+        return $user;
+    }
+
+    public function findDeletedUser($id): ?User
+    {
+        return User::onlyTrashed()->find($id);
     }
 }

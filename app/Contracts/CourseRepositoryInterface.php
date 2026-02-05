@@ -18,10 +18,11 @@ interface CourseRepositoryInterface
 
     public function forceDelete(Course $course): void;
 
-    public function showDeleted($perPage): Collection;
+    public function showDeleted(): Collection;
 
     public function getMycourses(): Collection;
 
     public function restore(Course $course): Course;
-    
+
+    public function findDeletedCourse($id): ?Course;
 }
