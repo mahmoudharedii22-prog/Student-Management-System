@@ -29,6 +29,7 @@
 
 
 
+```text
 app/
 ├── Http/
 │   ├── Controllers/
@@ -55,7 +56,14 @@ app/
 ├── Services/
 │   └── (Business logic layer)
 ├── Contracts/
-│   ├── (Repos
+│   ├── (Repository interfaces)
+│   └── Implementations/
+│       └── (Repository implementations)
+├── Enums/
+│   ├── AttendanceStatus.php
+│   └── StudentStatus.php
+└── Traits/
+    └── (Reusable shared logic)
 
 
 The project follows a layered architecture to keep the code clean and maintainable.
