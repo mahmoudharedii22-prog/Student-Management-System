@@ -1,150 +1,165 @@
-```text
+# School Management System API
 
-## Setup Steps
+A production-grade RESTful API built with **Laravel 11** for managing a complete school environment — students, teachers, courses, enrollment, attendance, and grading — with a fully layered clean architecture.
 
-1. Clone the repository
-   git clone <repo-url>
+---
 
-2. Install dependencies
-   composer install
+## Features
 
-3. Copy .env file
-   cp .env.example .env
+- **Role-Based Authentication** — Admin and Student roles with separate route groups, secured via Laravel Sanctum token authentication and custom middleware (`IsAdmin`, `IsStudent`)
+- **Course Management** — Full CRUD for courses, with admin-only creation and student enrollment workflows
+- **Enrollment System** — Students enroll in courses; admins manage and review enrollments
+- **Attendance Tracking** — Record and query attendance per course session using type-safe `AttendanceStatus` Enum
+- **Grading System** — Admins assign and update grades per student per course
+- **Student Status Management** — Tracked via `StudentStatus` Enum for consistent state handling across the system
+- **Standardised API Responses** — All endpoints return a unified JSON structure via a shared `ApiResponse` trait, including paginated responses with full metadata
 
-4. Generate application key
-   php artisan key:generate
+---
 
-5. Configure database in .env
+## Architecture
 
-6. Run migrations
-   php artisan migrate
+The project follows a strict layered architecture to keep the codebase clean, testable, and maintainable:
 
-7. (Optional) Seed the database
-   php artisan db:seed
-
-8. Run the server
-   php artisan serve
-
-9. (Optional) Create test users via Tinker / Factory
-   ```bash
-   php artisan tinker
-     User::factory()->count(x)->create();
-     User::factory()->count(x)->createAdmin()->create();
-     Course::factory()->count(x)->createAdmin()->create();
-
-
+```
 app/
 ├── Http/
-│   ├── Controllers/
-│   │   └── Api/
-│   │       ├── Admin/
-│   │       │   └── (Admin related controllers)
-│   │       ├── Student/
-│   │       │   └── (Student related controllers)
-│   │       └── Auth/
-│   │           └── (Authentication controllers: login, logout, etc.)
-│   ├── Requests/
-│   │   ├── Attendance/
-│   │   ├── Enrollment/
-│   │   ├── Course/
-│   │   ├── Grade/
-│   │   ├── Student/
-│   │   └── Auth/
-│   │       └── (Authentication related requests)
+│   ├── Controllers/Api/
+│   │   ├── Admin/          # Admin-facing endpoints (thin controllers only)
+│   │   ├── Student/        # Student-facing endpoints
+│   │   └── Auth/           # Login, logout, registration
+│   ├── Requests/           # Form Request validation & authorisation per resource
 │   └── Middleware/
 │       ├── IsAdmin.php
 │       └── IsStudent.php
-├── Models/
-│   └── (Eloquent models & relationships)
-├── Services/
-│   └── (Business logic layer)
+├── Models/                 # Eloquent models & relationships
+├── Services/               # Business logic layer — all domain rules live here
 ├── Contracts/
-│   ├── (Repository interfaces)
-│   └── Implementations/
-│       └── (Repository implementations)
+│   ├── *.php               # Repository interfaces (contracts)
+│   └── Implementations/    # Concrete repository implementations
 ├── Enums/
 │   ├── AttendanceStatus.php
 │   └── StudentStatus.php
 └── Traits/
-    └── (Reusable shared logic)
+    └── ApiResponse.php     # Unified JSON response format
+```
 
+**Layer responsibilities:**
+- **Controllers** — Handle HTTP only. No business logic, no direct DB calls.
+- **Form Requests** — Validate input and authorise the action before it reaches the controller.
+- **Services** — Own all business logic. Called by controllers, call repositories.
+- **Repositories** — Own all database operations. Eloquent is never touched directly in services.
+- **Enums** — Enforce type-safe state representation across the application.
 
-The project follows a layered architecture to keep the code clean and maintainable.
+---
 
-- Controllers(thin):
-  Handle HTTP requests and responses only, without business logic.
+## API Response Format
 
-- Form Requests:
-  Responsible for request validation and authorization.
+All endpoints return a consistent JSON structure:
 
-
-- Enums
-  Enums are used to represent fixed states across the application in a type-safe way.
-
-- Services:
-  contain the business logic of the application, They act as an intermediate layer between controllers and repositories.
-
-  
-- Repositories:
-  Repositories are responsible for handling all database operations, They abstract the data access layer and prevent direct interaction with Eloquent models inside services.
-
-
-- Models:
-  Represent database entities and handle relationships.
-
-- Traits:
-  Used for reusable logic such as standard API responses.
-
-- Routes:
-  API routes are grouped by version and role (admin) for better scalability.
-
-  
-## Response Standard Explanation
-
-All API responses in the application follow a consistent and unified structure using the ApiResponse trait. This ensures that all endpoints return responses in the same format, making it easier for frontend and mobile clients to consume the API reliably.
-
-- Success Responses
-  Indicate successful operations.
-
-  (1) Success without data to show
-  
-  {
-  "code": 200,
-  "message": "Student retrieved successfully",
-}
-
-  (2) Success with data to show
-
+```json
+// Success with data
 {
   "code": 200,
   "message": "Student retrieved successfully",
-  "data": {
-    "id": 1,
-    "name": "Ahmed"
-  }
+  "data": { "id": 1, "name": "Ahmed" }
 }
 
-(3) Success with pagination 
-
+// Success with pagination
 {
   "code": 200,
-  "message": "Student retrieved successfully",
-  "data": {
-    "id": 1,
-    "name": "Ahmed"
-  }
-   "meta": {
+  "message": "Students retrieved successfully",
+  "data": [...],
+  "meta": {
     "current_page": 1,
     "per_page": 15,
     "last_page": 3,
     "total": 40,
     "next_page_url": "...",
-    "prev_page_url": null,  
+    "prev_page_url": null
   }
 }
 
-(4) Error
+// Error
 {
   "code": 404,
-  "message": "Validation failed",
+  "message": "Student not found"
 }
+```
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Laravel 11 |
+| Database | MySQL |
+| Authentication | Laravel Sanctum |
+| Architecture | Service + Repository Pattern |
+| Type Safety | PHP Enums |
+| Testing | PHPUnit |
+
+---
+
+## Getting Started
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/mahmoudharedii22-prog/school-management-system-api.git
+cd school-management-system-api
+
+# 2. Install dependencies
+composer install
+
+# 3. Set up environment
+cp .env.example .env
+php artisan key:generate
+
+# 4. Configure your database in .env
+# DB_DATABASE=school_management
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# 5. Run migrations and seed
+php artisan migrate
+php artisan db:seed
+
+# 6. Start the server
+php artisan serve
+```
+
+**Seed creates test users:**
+```bash
+php artisan tinker
+User::factory()->count(5)->create();             # regular students
+User::factory()->createAdmin()->count(2)->create(); # admin users
+```
+
+---
+
+## Authentication
+
+All protected routes require a Bearer token obtained from the login endpoint.
+
+```
+POST /api/auth/login
+POST /api/auth/register
+POST /api/auth/logout       # requires token
+
+# Admin routes
+GET  /api/admin/students
+POST /api/admin/courses
+...
+
+# Student routes
+GET  /api/student/courses
+POST /api/student/enroll
+...
+```
+
+---
+
+## Author
+
+**Mahmoud Sayed Ali Harredy**
+[LinkedIn](https://www.linkedin.com/in/mahmoud-haredi) · [GitHub](https://github.com/mahmoudharedii22-prog)
